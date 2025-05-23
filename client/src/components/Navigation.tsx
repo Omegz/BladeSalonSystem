@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Menu, X, Shield } from "lucide-react";
+import { Link } from "wouter";
 
 interface NavigationProps {
   onSectionClick: (section: string) => void;
@@ -14,7 +15,6 @@ export default function Navigation({ onSectionClick, currentSection }: Navigatio
     { id: "home", label: "Home" },
     { id: "services", label: "Services" },
     { id: "booking", label: "Book Now", highlight: true },
-    { id: "admin", label: <Shield className="w-4 h-4" />, isIcon: true },
   ];
 
   return (
@@ -37,8 +37,6 @@ export default function Navigation({ onSectionClick, currentSection }: Navigatio
                   className={`${
                     item.highlight
                       ? "bg-gold hover:bg-gold-dark text-white px-6 py-2 rounded-lg font-medium transition-all duration-200 hover:shadow-lg"
-                      : item.isIcon
-                      ? "text-gray-500 hover:text-charcoal transition-colors duration-200"
                       : `text-charcoal hover:text-gold transition-colors duration-200 ${
                           currentSection === item.id ? "text-gold font-medium" : ""
                         }`
@@ -47,6 +45,11 @@ export default function Navigation({ onSectionClick, currentSection }: Navigatio
                   {item.label}
                 </button>
               ))}
+              <Link href="/admin">
+                <button className="text-gray-500 hover:text-charcoal transition-colors duration-200">
+                  <Shield className="w-4 h-4" />
+                </button>
+              </Link>
             </div>
           </div>
 

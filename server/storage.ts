@@ -1,4 +1,6 @@
 import { appointments, type Appointment, type InsertAppointment } from "@shared/schema";
+import { db } from "./db";
+import { eq, and, gte, lte } from "drizzle-orm";
 
 export interface IStorage {
   getAppointments(): Promise<Appointment[]>;
@@ -9,17 +11,9 @@ export interface IStorage {
   checkTimeSlotAvailable(startTime: Date, endTime: Date): Promise<boolean>;
 }
 
-export class MemStorage implements IStorage {
-  private appointments: Map<number, Appointment>;
-  private currentId: number;
-
-  constructor() {
-    this.appointments = new Map();
-    this.currentId = 1;
-  }
-
+export class DatabaseStorage implements IStorage {
   async getAppointments(): Promise<Appointment[]> {
-    return Array.from(this.appointments.values());
+    return await db.select().from(appointments);
   }
 
   async getAppointmentsByDate(date: Date): Promise<Appointment[]> {
@@ -28,44 +22,54 @@ export class MemStorage implements IStorage {
     const endOfDay = new Date(date);
     endOfDay.setHours(23, 59, 59, 999);
 
-    return Array.from(this.appointments.values()).filter(
-      (appointment) =>
-        appointment.startTime >= startOfDay && appointment.startTime <= endOfDay
-    );
+    return await db
+      .select()
+      .from(appointments)
+      .where(
+        and(
+          gte(appointments.startTime, startOfDay),
+          lte(appointments.startTime, endOfDay)
+        )
+      );
   }
 
   async getAppointment(id: number): Promise<Appointment | undefined> {
-    return this.appointments.get(id);
+    const [appointment] = await db
+      .select()
+      .from(appointments)
+      .where(eq(appointments.id, id));
+    return appointment || undefined;
   }
 
   async createAppointment(insertAppointment: InsertAppointment): Promise<Appointment> {
-    const id = this.currentId++;
-    const appointment: Appointment = { 
-      ...insertAppointment, 
-      id,
-      startTime: new Date(insertAppointment.startTime),
-      endTime: new Date(insertAppointment.endTime)
-    };
-    this.appointments.set(id, appointment);
+    const [appointment] = await db
+      .insert(appointments)
+      .values(insertAppointment)
+      .returning();
     return appointment;
   }
 
   async deleteAppointment(id: number): Promise<boolean> {
-    return this.appointments.delete(id);
+    const result = await db
+      .delete(appointments)
+      .where(eq(appointments.id, id));
+    return (result.rowCount || 0) > 0;
   }
 
   async checkTimeSlotAvailable(startTime: Date, endTime: Date): Promise<boolean> {
-    const appointments = Array.from(this.appointments.values());
-    
-    return !appointments.some((appointment) => {
-      // Check for any overlap
-      return (
-        (startTime >= appointment.startTime && startTime < appointment.endTime) ||
-        (endTime > appointment.startTime && endTime <= appointment.endTime) ||
-        (startTime <= appointment.startTime && endTime >= appointment.endTime)
+    const conflictingAppointments = await db
+      .select()
+      .from(appointments)
+      .where(
+        and(
+          // Check for overlapping appointments
+          lte(appointments.startTime, endTime),
+          gte(appointments.endTime, startTime)
+        )
       );
-    });
+    
+    return conflictingAppointments.length === 0;
   }
 }
 
-export const storage = new MemStorage();
+export const storage = new DatabaseStorage();

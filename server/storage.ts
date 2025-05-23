@@ -42,10 +42,12 @@ export class DatabaseStorage implements IStorage {
   }
 
   async createAppointment(insertAppointment: InsertAppointment): Promise<Appointment> {
+    console.log('Creating appointment:', insertAppointment);
     const [appointment] = await db
       .insert(appointments)
       .values(insertAppointment)
       .returning();
+    console.log('Created appointment:', appointment);
     return appointment;
   }
 

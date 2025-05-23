@@ -1,0 +1,51 @@
+Project name: “Fade & Blade – Sleek Barbershop Booking Site”
+
+Goal  
+Build a modern, brand-forward barbershop website with a clean, innovative “barbershop vibe” (think dark-on-light palette, bold typography, subtle vintage accents). Unsigned visitors can browse services and book an appointment; admins get a schedule dashboard.
+
+
+Core pages & features  
+1. **Home / Landing**  
+   – Hero section with big “Book Your Cut” CTA  
+   – Brief blurb about shop philosophy / vibe  
+   – High-res background photo (barber’s chair, scissors, etc.)  
+2. **Services**  ▸ selectable during booking  
+   • Haircut – 30 min  
+   • Shave – 30 min  
+   • Combo (Cut + Shave) – 60 min  
+   (allow easy expansion: Beard Trim, Kids’ Cut, etc.)  
+3. **Booking page**  
+   – Date picker (defaults to today)  
+   – Time-slot grid in 30-minute increments from 09:00 to 19:00 (inclusive)  
+   – Disable/gray-out already-booked slots (no double-booking)  
+   – Form fields: Name (optional), **Email (required), Phone (required)**  
+   – “Confirm” button → POST /api/appointments  
+   – Toast / modal confirmation and calendar-style success animation  
+4. **Admin Schedule Dashboard** (protected route `/admin`)  
+   – Daily agenda view: timeline from 09:00 to 19:00, grouped by service type  
+   – Each appointment card shows time, service, email, phone  
+   – “Cancel” icon ➝ confirmation dialog ➝ DELETE /api/appointments/:id  
+   – Optional toggle to view other days (date picker)  
+
+Business rules  
+• Appointments exactly every 0.5 hour; slot length equals chosen service duration  
+• Reject overlaps on the server; return 409 error if slot taken  
+• Store `id, service, start_time, end_time, email, phone` in DB  
+• Basic server-side validation: email format, phone digits, time inside 09:00–19:00  
+
+Design cues  
+• Minimalist layout with lots of white space and 2-tone accent color (e.g., charcoal #1f1f1f + gold #d4af37)  
+• Soft drop-shadows, rounded corners (lg+), subtle micro-interactions on hover  
+• Use Tailwind’s sans-serif display font for headers, monospace for small accents  
+• Responsive: mobile-first, collapsible nav menu, grid breaks at md/lg  
+
+Nice-to-haves (stretch)  
+• Confirmation email/SMS via Resend or Twilio  
+• Add “Add to Calendar” ICS download after booking  
+• Persist admin login with cookie session  
+• Offline-first PWA with service-worker caching  
+
+Deliverables  
+• Complete source in a single Replit project  
+• `README.md` with setup & env vars  
+• ***No extra boilerplate beyond what’s necessary*** – keep it sleek and focused

@@ -1,0 +1,134 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: 0 0% 100%;
+  --foreground: 0 0% 12%;
+  --muted: 60 4.8% 95.9%;
+  --muted-foreground: 25 5.3% 44.7%;
+  --popover: 0 0% 100%;
+  --popover-foreground: 0 0% 12%;
+  --card: 0 0% 100%;
+  --card-foreground: 0 0% 12%;
+  --border: 20 5.9% 90%;
+  --input: 20 5.9% 90%;
+  --primary: 43 74% 49%;
+  --primary-foreground: 0 0% 100%;
+  --secondary: 60 4.8% 95.9%;
+  --secondary-foreground: 0 0% 12%;
+  --accent: 60 4.8% 95.9%;
+  --accent-foreground: 0 0% 12%;
+  --destructive: 0 84.2% 60.2%;
+  --destructive-foreground: 60 9.1% 97.8%;
+  --ring: 43 74% 49%;
+  --radius: 0.5rem;
+  --charcoal: 0 0% 12%;
+  --gold: 43 74% 49%;
+  --gold-light: 45 76% 57%;
+  --gold-dark: 41 72% 41%;
+}
+
+.dark {
+  --background: 0 0% 12%;
+  --foreground: 0 0% 98%;
+  --muted: 0 0% 15.9%;
+  --muted-foreground: 240 5% 64.9%;
+  --popover: 0 0% 12%;
+  --popover-foreground: 0 0% 98%;
+  --card: 0 0% 12%;
+  --card-foreground: 0 0% 98%;
+  --border: 0 0% 15.9%;
+  --input: 0 0% 15.9%;
+  --primary: 43 74% 49%;
+  --primary-foreground: 0 0% 100%;
+  --secondary: 0 0% 15.9%;
+  --secondary-foreground: 0 0% 98%;
+  --accent: 0 0% 15.9%;
+  --accent-foreground: 0 0% 98%;
+  --destructive: 0 62.8% 30.6%;
+  --destructive-foreground: 0 0% 98%;
+  --ring: 43 74% 49%;
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply font-sans antialiased bg-background text-foreground;
+  }
+}
+
+/* Custom colors for barbershop theme */
+.text-charcoal {
+  color: #1f1f1f;
+}
+
+.bg-charcoal {
+  background-color: #1f1f1f;
+}
+
+.text-gold {
+  color: #d4af37;
+}
+
+.bg-gold {
+  background-color: #d4af37;
+}
+
+.text-gold-light {
+  color: #e4c547;
+}
+
+.bg-gold-light {
+  background-color: #e4c547;
+}
+
+.text-gold-dark {
+  color: #c49b27;
+}
+
+.bg-gold-dark {
+  background-color: #c49b27;
+}
+
+.border-gold {
+  border-color: #d4af37;
+}
+
+.hover\:bg-gold-dark:hover {
+  background-color: #c49b27;
+}
+
+.hover\:text-gold:hover {
+  color: #d4af37;
+}
+
+.hover\:border-gold:hover {
+  border-color: #d4af37;
+}
+
+/* Smooth animations */
+.transition-all {
+  transition: all 0.2s ease-in-out;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #d4af37;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #c49b27;
+}

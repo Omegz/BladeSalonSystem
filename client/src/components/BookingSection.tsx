@@ -43,6 +43,11 @@ export default function BookingSection({ selectedService, onServiceClear }: Book
   // Fetch available time slots for selected date
   const { data: timeSlots, isLoading: slotsLoading } = useQuery<TimeSlot[]>({
     queryKey: ['/api/appointments/availability', selectedDate],
+    queryFn: async () => {
+      const response = await fetch(`/api/appointments/availability/${selectedDate}`);
+      if (!response.ok) throw new Error('Failed to fetch availability');
+      return response.json();
+    },
     enabled: !!selectedDate,
   });
 

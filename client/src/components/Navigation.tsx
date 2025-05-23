@@ -84,9 +84,17 @@ export default function Navigation({ onSectionClick, currentSection }: Navigatio
                     : "block text-charcoal hover:text-gold transition-colors w-full text-left"
                 }`}
               >
-                {item.isIcon ? "Admin" : item.label}
+                {item.label}
               </button>
             ))}
+            <Link href="/admin">
+              <button 
+                onClick={() => setIsMobileMenuOpen(false)}
+                className="block text-charcoal hover:text-gold transition-colors w-full text-left"
+              >
+                Admin
+              </button>
+            </Link>
           </div>
         </div>
       )}

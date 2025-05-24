@@ -1,16 +1,12 @@
 import express from "express";
-import { Pool, neonConfig } from "@neondatabase/serverless";
+import { Pool } from "@neondatabase/serverless";
 import { drizzle } from "drizzle-orm/neon-serverless";
-import ws from "ws";
 import { eq, and, gte, lte } from "drizzle-orm";
 import {
   appointments,
   insertAppointmentSchema,
   SERVICES,
 } from "../shared/schema.js";
-
-// Configure WebSocket for Neon
-neonConfig.webSocketConstructor = ws;
 
 if (!process.env.DATABASE_URL) {
   throw new Error(

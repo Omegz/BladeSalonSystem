@@ -1,11 +1,7 @@
 import { Pool } from "@neondatabase/serverless";
 import { drizzle } from "drizzle-orm/neon-serverless";
 import { eq, and, gte, lte } from "drizzle-orm";
-import {
-  appointments,
-  insertAppointmentSchema,
-  SERVICES,
-} from "../shared/schema.js";
+import { appointments, insertAppointmentSchema, SERVICES } from "./_schema.js";
 
 if (!process.env.DATABASE_URL) {
   throw new Error(

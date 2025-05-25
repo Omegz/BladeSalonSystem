@@ -4,16 +4,16 @@
   "builds": [
     {
       "src": "package.json",
-      "use": "@vercel/static-build@2.8.5",   
+      "use": "@vercel/static-build",   
       "config": {
         "buildCommand": "bun run build",
         "distDir": "dist/public"
       }
     },
-  {
-    "src": "api/index.js",
-    "use": "@vercel/node@3.0.1"            
-  }
+    {
+      "src": "api/index.js",
+      "use": "@vercel/node"            
+    }
   ],
   "routes": [
     { "handle": "filesystem" },

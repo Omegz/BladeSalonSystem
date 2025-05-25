@@ -1,13 +1,18 @@
 {
   "version": 2,
+
   "builds": [
     {
       "src": "package.json",
-      "use": "@vercel/static-build",   
+      "use": "@vercel/static-build",
       "config": {
         "buildCommand": "bun run build",
         "distDir": "dist/public"
       }
+    },
+    {
+      "src": "api/index.js",
+      "use": "@vercel/node"
     }
   ],
   "routes": [

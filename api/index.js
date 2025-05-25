@@ -85,7 +85,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 // API Routes
-app.get("/api/appointments", async (req, res) => {
+app.get("/appointments", async (req, res) => {
   try {
     const { date } = req.query;
     if (date && typeof date === "string") {
@@ -103,7 +103,7 @@ app.get("/api/appointments", async (req, res) => {
   }
 });
 
-app.post("/api/appointments", async (req, res) => {
+app.post("/appointments", async (req, res) => {
   try {
     const result = insertAppointmentSchema.safeParse(req.body);
     if (!result.success) {
@@ -152,7 +152,7 @@ app.post("/api/appointments", async (req, res) => {
   }
 });
 
-app.delete("/api/appointments/:id", async (req, res) => {
+app.delete("/appointments/:id", async (req, res) => {
   try {
     const id = parseInt(req.params.id);
     if (isNaN(id)) {
@@ -170,7 +170,7 @@ app.delete("/api/appointments/:id", async (req, res) => {
   }
 });
 
-app.get("/api/appointments/availability/:date", async (req, res) => {
+app.get("/appointments/availability/:date", async (req, res) => {
   try {
     const date = new Date(req.params.date);
     if (isNaN(date.getTime())) {

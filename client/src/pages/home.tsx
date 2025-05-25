@@ -37,6 +37,7 @@ export default function Home() {
       
       <div id="home">
         <HeroSection onBookNowClick={handleBookNowClick} />
+        <h1>hello</h1>
       </div>
       
       <AboutSection />

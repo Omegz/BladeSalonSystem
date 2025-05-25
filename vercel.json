@@ -11,11 +11,6 @@
       }
     }
   ],
-  "functions": {
-    "api/*.js": {
-      "runtime": "@vercel/node@18"
-    }
-  },
   "routes": [
     { "handle": "filesystem" },
     { "src": "/api/(.*)", "dest": "/api/$1" },
